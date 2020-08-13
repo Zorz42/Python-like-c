@@ -16,6 +16,22 @@ var::PY_Object() {
 }
 
 var::PY_Object(const PY_Object& obj) {
+    __set(obj);
+}
+
+var::PY_Object(const char* input) {
+    __set(input);
+}
+
+var::PY_Object(const int input) {
+    __set(input);
+}
+
+var::PY_Object(const bool input) {
+    __set(input);
+}
+
+void var::__set(const PY_Object &obj) {
     __type = obj.__returnType();
     switch(__type) {
         case none:
@@ -37,18 +53,6 @@ var::PY_Object(const PY_Object& obj) {
     }
 }
 
-var::PY_Object(const char* input) {
-    __set(input);
-}
-
-var::PY_Object(const int input) {
-    __set(input);
-}
-
-var::PY_Object(const bool input) {
-    __set(input);
-}
-
 void var::__set(const int input) {
     __type = PY_int;
     __data = new int(input);
@@ -61,11 +65,14 @@ void var::__set(const char *input) {
 }
 
 void var::__set(const bool input) {
+    std::cout << "setting" << std::endl;
     __type = PY_bool;
     __data = new bool(input);
 }
 
 var::~PY_Object() {
+    if(__data)
+        std::cout << "freeing" << std::endl;
     if(__data)
         switch(__type) {
             case PY_int:
@@ -86,4 +93,9 @@ var::~PY_Object() {
             default:
                 break;
         }
+}
+
+void var::operator=(const PY_Object obj) {
+    this->~PY_Object();
+    __set(obj);
 }

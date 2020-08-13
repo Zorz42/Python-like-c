@@ -33,9 +33,12 @@ public:
     PY_Object(const bool input);
     ~PY_Object();
     
+    void operator=(const PY_Object obj);
+    
 private:
     Type __type;
     void* __data;
+    void __set(const PY_Object& obj);
     void __set(const int input);
     void __set(const char* input);
     void __set(const bool input);
