@@ -7,24 +7,13 @@
 
 #include "Python.hpp"
 
-void test_a(var& param) {
-    
+def test_a(var& param) {
+    return None;
 }
 
 void main() {
-    /*var i, s = "aaas";
-    i = 10;
-    print("test");
-    i = to_int("10");
-    var copy = s;
-    var nothing;
-    print("test");
-    print(s);
-    print(i);
-    print(nothing);
-    print(copy);*/
-    
-    var temp2 = True, temp = 10;
-    temp2 = temp;
-    //print(temp2);
+    print("test:");
+    var test1 = True, test2 = True;
+    if(test1 != test2)
+        print("It's True :)");
 }

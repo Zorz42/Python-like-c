@@ -33,7 +33,11 @@ public:
     PY_Object(const bool input);
     ~PY_Object();
     
+    operator bool() const;
+    
     void operator=(const PY_Object obj);
+    
+    PY_Object operator==(const PY_Object obj);
     
 private:
     Type __type;

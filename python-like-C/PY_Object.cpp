@@ -65,14 +65,14 @@ void var::__set(const char *input) {
 }
 
 void var::__set(const bool input) {
-    std::cout << "setting" << std::endl;
+    //std::cout << "setting" << std::endl;
     __type = PY_bool;
     __data = new bool(input);
 }
 
 var::~PY_Object() {
-    if(__data)
-        std::cout << "freeing" << std::endl;
+    /*if(__data)
+        std::cout << "freeing" << std::endl;*/
     if(__data)
         switch(__type) {
             case PY_int:
@@ -98,4 +98,44 @@ var::~PY_Object() {
 void var::operator=(const PY_Object obj) {
     this->~PY_Object();
     __set(obj);
+}
+
+var::operator bool() const {
+    if(__data)
+        switch(__type) {
+            case PY_int:
+                return *(int*)__data != 0;
+            
+            case str:
+                return *(const char*)__data != 0;
+            
+            case PY_bool:
+                return *(bool*)__data;
+            
+            default:
+                return false;
+        }
+    else
+        return false;
+}
+
+var var::operator==(const PY_Object obj) {
+    if(__type != type(obj))
+        return False;
+    if(__type == none)
+        return True;
+    
+    switch(__type) {
+        case PY_int:
+            return *(int*)__data == *(int*)obj.__returnData();
+        
+        case str:
+            return !strcmp((const char*)__data, (const char*)obj.__returnData());
+        
+        case PY_bool:
+            return *(bool*)__data == *(bool*)obj.__returnData();
+        
+        default:
+            return false;
+    }
 }

@@ -18,21 +18,6 @@ int main(int argc, const char * argv[]) {
 }
 
 def print(const var x, const var end) {
-    /*switch(type(x)) {
-        case none:
-            std::cout << "None";
-            break;
-        case PY_int:
-            std::cout << *(int *)x.__returnData();
-            break;
-        case str:
-            std::cout << (char*)x.__returnData();
-            break;
-        default:
-            std::cout << "Cannot print this type." << std::endl;
-            exit(1);
-    }*/
-    
     std::cout << (char*)to_str(x).__returnData();
     
     if(type(end) != none)
